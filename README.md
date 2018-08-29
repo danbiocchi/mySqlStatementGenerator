@@ -1,5 +1,5 @@
 # mySqlStatementGenerator
-..> Windows ONLY
+> Windows ONLY
 >Purpose of script, convert a excel doc to an insert statement to be inputted into a database <<<
 
 Converts .xslm (macro enabled excel docs) to insert statements given database column title and column which corresponds to said data, printing an insert statement in the format:
