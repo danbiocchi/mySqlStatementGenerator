@@ -1,6 +1,6 @@
 # mySqlStatementGenerator
 ..> Windows ONLY
->>> Purpose of script, convert a excel doc to an insert statement to be inputted into a database <<<
+>Purpose of script, convert a excel doc to an insert statement to be inputted into a database <<<
 
 Converts .xslm (macro enabled excel docs) to insert statements given database column title and column which corresponds to said data, printing an insert statement in the format:
 
@@ -12,11 +12,11 @@ To use those entries just un-comment and then change values depending on where t
 
 TO USE THE SCRIPT >>
 
->> Open Excel with relevant data (Make sure developer tab is enabled https://www.techonthenet.com/excel/questions/developer_tab2013.php)
->> Navigate to the Developer Tab
->> Click "Visual Basic" on the left-most of the ribbon.
->> Select the relevant Sheet from the left hand side.
->> Paste the code provided above
->> Alter the program settings in VBA Editor 
->> Run Sub-routine sing F5 or clicking "Run" on the top then selecting "Run Sub-Routine"
->> Insert statement will be printed to a file on the desktop.
+>1. Open Excel with relevant data (Make sure developer tab is enabled https://www.techonthenet.com/excel/questions/developer_tab2013.php)
+>2. Navigate to the Developer Tab
+>3. Click "Visual Basic" on the left-most of the ribbon.
+>4. Select the relevant Sheet from the left hand side.
+>5. Paste the code provided above
+>6. Alter the program settings in VBA Editor 
+>7. Run Sub-routine sing F5 or clicking "Run" on the top then selecting "Run Sub-Routine"
+>8. Insert statement will be printed to a file on the desktop.
