@@ -4,7 +4,7 @@
 
 Converts .xslm (macro enabled excel docs) to insert statements given database column title and column which corresponds to said data, printing an insert statement in the format:
 
-INSERT INTO `table_name`(column_1,column_2,...) VALUES (value_1,value_2,...);
+`INSERT INTO 'table_name'(column_1,column_2,...) VALUES (value_1,value_2,...);`
 
 I have addded 1-9 columns with the script using 3 values so far as an example and the other entries commented out. 
 To use those entries just un-comment and then change values depending on where the information exists.
