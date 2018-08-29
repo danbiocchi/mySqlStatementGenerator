@@ -4,7 +4,7 @@ Sub compileInsertStatement()
 ' This script will only proccess number and String entries.
 ' This script in V1 cannot properly format date strings.
 ' Please only use this script if the data to be entered is
-'numberic(1,1.00) or of String value('abc')
+' numberic(1,1.00) or of String value('abc')
 ' Since it is required to have seperate arrays for each data-set I've added up to 9 entries
 ' Uncomment the entries you'd require for each space needed. If you use more or less then
 ' the amount this file defaults. You will need to uncomment/comment 4 times
@@ -21,22 +21,19 @@ Set outputFile = fso.CreateTextFile("C:\Users\" & UserName & "\Desktop\insertSta
 
 'Variables
 'Array to hold all arrays for the value entries
-
 'The amount of values to add them to the valueArray
-
 Dim count As Integer
 Dim insertStringPrefix As String
 Dim insertStringValue As String
 Dim table_Name As String
 Dim dataCell As Range
-
-'Values to be compiled into statement
-' Change this number to correspond with the number of columms below <<<<<<<
-Const numberOfColumnsToAdd = 3 ' How many value fields will be in insert statement
 Dim primary_Key As Range
 
 
-Dim valuesArray(1 To numberOfColumnsToAdd) As String
+'Values to be compiled into statement
+' Change this number to correspond with the number of columms below <<<<<<<
+' >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Change these values below to configure the script <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Const numberOfColumnsToAdd = 3 ' How many value fields will be in insert statement
 
 ' The following must match the column titles in the database that correspond to each column
 ' the excel doc. Please use proper case.
@@ -49,10 +46,6 @@ valuesArray(3) = "test3"
 'valuesArray (7) = " "
 'valuesArray (8) = " "
 'valuesArray (9) = " "
-
-
-
-Dim columnArray(1 To 10) As String
 
 ' Configure these strings to match the corresponding data added to the arrays above.
 ' If IP address is the desired
@@ -67,6 +60,18 @@ columnArray(3) = "A"
 'columnArray(9) = "A"
 'columnArray(10) = "A"
 
+' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Dim valuesArray(1 To numberOfColumnsToAdd) As String
+
+
+
+
+
+Dim columnArray(1 To 10) As String
+
+
+
 
 Set primary_Key = Range(columnArray(1) & "2:" & columnArray(1) & Range(columnArray(1) & Rows.count).End(xlUp).Row)
 
@@ -80,18 +85,17 @@ insertStringPrefix = insertStringPrefix & "`" & valuesArray(1) & "`"
 
 For i = 2 To numberOfColumnsToAdd
 
-insertStringPrefix = insertStringPrefix & ",`" & valuesArray(i) & "`"
+        insertStringPrefix = insertStringPrefix & ",`" & valuesArray(i) & "`"
 
 Next i
 
-insertStringPrefix = insertStringPrefix & ") VALUES"
 
+
+insertStringPrefix = insertStringPrefix & ") VALUES"
 
 ' First line of insert statement printed to file
 Debug.Print insertStringPrefix
 outputFile.writeLine (insertStringPrefix)
-
-
 Debug.Print insertStatementValues
 
         
