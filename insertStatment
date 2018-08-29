@@ -18,7 +18,6 @@ Dim outputFile As Object
 UserName = Environ("USERNAME")
 Set outputFile = fso.CreateTextFile("C:\Users\" & UserName & "\Desktop\insertStatement.txt", fsoForAppend)
 
-
 'Variables
 'Array to hold all arrays for the value entries
 'The amount of values to add them to the valueArray
@@ -30,16 +29,19 @@ Dim dataCell As Range
 Dim primary_Key As Range
 
 
-'Values to be compiled into statement
-' Change this number to correspond with the number of columms below <<<<<<<
+' 
 ' >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Change these values below to configure the script <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-Const numberOfColumnsToAdd = 3 ' How many value fields will be in insert statement
+
+Const numberOfColumnsToAdd = 3 ' Change this number to correspond with the number of columms below <<<<<<<
+
+'Change table name
+table_Name = "YOUR_DATABASE_TABLE_NAME_HERE"
 
 ' The following must match the column titles in the database that correspond to each column
 ' the excel doc. Please use proper case.
-valuesArray(1) = "ipaddress"   'Ex INSERT INTO TABLE_NAME (IP_Address)
-valuesArray(2) = "test2"  ' Ex INSERT INTO TABLE_NAME (IP_Address,remaining_Space)
-valuesArray(3) = "test3"
+valuesArray(1) = "value_1"   'Ex INSERT INTO TABLE_NAME VALUES (value_1)
+valuesArray(2) = "value_2"  ' Ex INSERT INTO TABLE_NAME VALUES (value_1,value_2)
+valuesArray(3) = "value_3" ' Ex INSERT INTO TABLE_NAME VALUES (value_1,value_2,value3) you get the point
 'valuesArray (4) = " "
 'valuesArray (5) = " "
 'valuesArray (6) = " "
@@ -47,10 +49,10 @@ valuesArray(3) = "test3"
 'valuesArray (8) = " "
 'valuesArray (9) = " "
 
-' Configure these strings to match the corresponding data added to the arrays above.
-' If IP address is the desired
-columnArray(1) = "P"  ' PlaceHolder A
-columnArray(2) = "F"  ' Ex VALUES (value_1_array[Range of (A)],value_2_array[0Range Of (A)]);
+' Configure these strings to match the corresponding data added to the arrays above. 
+' columnArray(1) should be set to the column which contains the values for value_1 (valuesArray(1)) that is set above
+columnArray(1) = "A"  ' Ex VALUES (value_1_array[Range of (A)]);
+columnArray(2) = "A"  ' Ex VALUES (value_1_array[Range of (A)],value_2_array[Range Of (F)]);
 columnArray(3) = "A"
 'columnArray(4) = "A"
 'columnArray(5) = "A"
@@ -63,32 +65,17 @@ columnArray(3) = "A"
 ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Dim valuesArray(1 To numberOfColumnsToAdd) As String
-
-
-
-
-
 Dim columnArray(1 To 10) As String
-
-
-
 
 Set primary_Key = Range(columnArray(1) & "2:" & columnArray(1) & Range(columnArray(1) & Rows.count).End(xlUp).Row)
 
-'Change table name
-table_Name = "ip_List"
-
-insertStringPrefix = "INSERT INTO `" & table_Name & "` (" '&proj_id, work_note_type_id, stat_code, proj_work_note_desc, proj_work_note_crtn_date, proj_work_note_user_id) VALUES"
-
+insertStringPrefix = "INSERT INTO `" & table_Name & "` ("
 insertStringPrefix = insertStringPrefix & "`" & valuesArray(1) & "`"
 
 
 For i = 2 To numberOfColumnsToAdd
-
         insertStringPrefix = insertStringPrefix & ",`" & valuesArray(i) & "`"
-
 Next i
-
 
 
 insertStringPrefix = insertStringPrefix & ") VALUES"
@@ -105,7 +92,6 @@ For Each Cell In primary_Key
     
     For i = 1 To numberOfColumnsToAdd
         
-
         ' If value in numeric do not add ' ' surrounding value.
         If IsNumeric(Range(columnArray(i) & Trim(Cell.Row)).Value) Then
             ' If the first record don't add a comma after
@@ -122,18 +108,10 @@ For Each Cell In primary_Key
             Else
                 insertStringValue = insertStringValue & ", '" & Range(columnArray(i) & Trim(Cell.Row)).Value & "'"
             End If
-                
-            'insertStringValue = insertStringValue & ", '" & Range(columnArray(i) & Trim(cell.Row)).Value & "'"
-            'Debug.Print "'" & cell.Value & "'"
-    
+
         End If
         
-        'dataCell = "$" & columnArray(i) & "$" & cell.Row
-        'Debug.Print columnArray(i) & Trim(cell.Row)
-        'Debug.Print Range(columnArray(i) & Trim(cell.Row)).Value
-        
     Next i
-    
     
     If Cell.Address = primary_Key.Cells(primary_Key.Cells.count).Address Then
         insertStringValue = insertStringValue & ");"
@@ -143,13 +121,8 @@ For Each Cell In primary_Key
     
     Debug.Print insertStringValue
     outputFile.writeLine (insertStringValue)
-    'Debug.Print cell.Address
-    'outputFile.write (count)
-    
-    
 
 Next Cell
-
 
 
 'Close all the streams and reset objects
