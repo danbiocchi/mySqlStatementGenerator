@@ -1,0 +1,157 @@
+Sub compileInsertStatement()
+
+' Some information to keep in mind
+' This script will only proccess number and String entries.
+' This script in V1 cannot properly format date strings.
+' Please only use this script if the data to be entered is
+'numberic(1,1.00) or of String value('abc')
+' Since it is required to have seperate arrays for each data-set I've added up to 9 entries
+' Uncomment the entries you'd require for each space needed. If you use more or less then
+' the amount this file defaults. You will need to uncomment/comment 4 times
+
+'File Creation
+Const fsoForAppend = 8
+Dim fso As Object
+Set fso = CreateObject("Scripting.FileSystemObject")
+Dim outputFile As Object
+' Grab current username - windows only
+UserName = Environ("USERNAME")
+Set outputFile = fso.CreateTextFile("C:\Users\" & UserName & "\Desktop\insertStatement.txt", fsoForAppend)
+
+
+'Variables
+'Array to hold all arrays for the value entries
+
+'The amount of values to add them to the valueArray
+
+Dim count As Integer
+Dim insertStringPrefix As String
+Dim insertStringValue As String
+Dim table_Name As String
+Dim dataCell As Range
+
+'Values to be compiled into statement
+' Change this number to correspond with the number of columms below <<<<<<<
+Const numberOfColumnsToAdd = 3 ' How many value fields will be in insert statement
+Dim primary_Key As Range
+
+
+Dim valuesArray(1 To numberOfColumnsToAdd) As String
+
+' The following must match the column titles in the database that correspond to each column
+' the excel doc. Please use proper case.
+valuesArray(1) = "ipaddress"   'Ex INSERT INTO TABLE_NAME (IP_Address)
+valuesArray(2) = "test2"  ' Ex INSERT INTO TABLE_NAME (IP_Address,remaining_Space)
+valuesArray(3) = "test3"
+'valuesArray (4) = " "
+'valuesArray (5) = " "
+'valuesArray (6) = " "
+'valuesArray (7) = " "
+'valuesArray (8) = " "
+'valuesArray (9) = " "
+
+
+
+Dim columnArray(1 To 10) As String
+
+' Configure these strings to match the corresponding data added to the arrays above.
+' If IP address is the desired
+columnArray(1) = "P"  ' PlaceHolder A
+columnArray(2) = "F"  ' Ex VALUES (value_1_array[Range of (A)],value_2_array[0Range Of (A)]);
+columnArray(3) = "A"
+'columnArray(4) = "A"
+'columnArray(5) = "A"
+'columnArray(6) = "A"
+'columnArray(7) = "A"
+'columnArray(8) = "A"
+'columnArray(9) = "A"
+'columnArray(10) = "A"
+
+
+Set primary_Key = Range(columnArray(1) & "2:" & columnArray(1) & Range(columnArray(1) & Rows.count).End(xlUp).Row)
+
+'Change table name
+table_Name = "ip_List"
+
+insertStringPrefix = "INSERT INTO `" & table_Name & "` (" '&proj_id, work_note_type_id, stat_code, proj_work_note_desc, proj_work_note_crtn_date, proj_work_note_user_id) VALUES"
+
+insertStringPrefix = insertStringPrefix & "`" & valuesArray(1) & "`"
+
+
+For i = 2 To numberOfColumnsToAdd
+
+insertStringPrefix = insertStringPrefix & ",`" & valuesArray(i) & "`"
+
+Next i
+
+insertStringPrefix = insertStringPrefix & ") VALUES"
+
+
+' First line of insert statement printed to file
+Debug.Print insertStringPrefix
+outputFile.writeLine (insertStringPrefix)
+
+
+Debug.Print insertStatementValues
+
+        
+For Each Cell In primary_Key
+    
+    insertStringValue = " ("
+    
+    For i = 1 To numberOfColumnsToAdd
+        
+
+        ' If value in numeric do not add ' ' surrounding value.
+        If IsNumeric(Range(columnArray(i) & Trim(Cell.Row)).Value) Then
+            ' If the first record don't add a comma after
+            If i = 1 Then
+                insertStringValue = insertStringValue & Range(columnArray(i) & Trim(Cell.Row)).Value
+            Else
+                insertStringValue = insertStringValue & ", " & Range(columnArray(i) & Trim(Cell.Row)).Value
+            End If
+        ' If value is nto numeric add ' ' surrouding the value
+        Else
+            
+            If i = 1 Then
+                insertStringValue = insertStringValue & " '" & Range(columnArray(i) & Trim(Cell.Row)).Value & "'"
+            Else
+                insertStringValue = insertStringValue & ", '" & Range(columnArray(i) & Trim(Cell.Row)).Value & "'"
+            End If
+                
+            'insertStringValue = insertStringValue & ", '" & Range(columnArray(i) & Trim(cell.Row)).Value & "'"
+            'Debug.Print "'" & cell.Value & "'"
+    
+        End If
+        
+        'dataCell = "$" & columnArray(i) & "$" & cell.Row
+        'Debug.Print columnArray(i) & Trim(cell.Row)
+        'Debug.Print Range(columnArray(i) & Trim(cell.Row)).Value
+        
+    Next i
+    
+    
+    If Cell.Address = primary_Key.Cells(primary_Key.Cells.count).Address Then
+        insertStringValue = insertStringValue & ");"
+    Else
+        insertStringValue = insertStringValue & "),"
+    End If
+    
+    Debug.Print insertStringValue
+    outputFile.writeLine (insertStringValue)
+    'Debug.Print cell.Address
+    'outputFile.write (count)
+    
+    
+
+Next Cell
+
+
+
+'Close all the streams and reset objects
+outputFile.Close
+Set fso = Nothing
+Set outputFile = Nothing
+
+
+End Sub
