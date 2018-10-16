@@ -1,7 +1,7 @@
 Sub compileInsertStatement()
 
 ' Some information to keep in mind
-' This script will only proccess number and String entries.
+' This script will only proccess integer and String entries.
 ' This script in V1 cannot properly format date strings.
 ' Please only use this script if the data to be entered is
 ' numberic(1,1.00) or of String value('abc')
