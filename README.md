@@ -16,7 +16,7 @@ TO USE THE SCRIPT >>
 >2. Navigate to the Developer Tab
 >3. Click "Visual Basic" on the left-most of the ribbon.
 >4. Select the relevant Sheet from the left hand side.
->5. Paste the code provided above
+>5. Paste the code provided above (file: insertStatement)
 >6. Alter the program settings in VBA Editor (Edit code provided using the excel built in editor or prefered text editor.)
 >7. Run Sub-routine pressing F5 or clicking "Run" on the top then selecting "Run Sub-Routine"
 >8. Insert statement will be printed to a file on the desktop.
