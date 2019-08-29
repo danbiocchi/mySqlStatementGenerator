@@ -34,6 +34,10 @@ Dim primary_Key As Range
 
 Const numberOfColumnsToAdd = 3 ' Change this number to correspond with the number of columms below <<<<<<<
 
+Dim valuesArray(1 To numberOfColumnsToAdd) As String
+Dim columnArray(1 To numberOfColumnsToAdd) As String
+
+
 'Change table name
 table_Name = "YOUR_DATABASE_TABLE_NAME_HERE"
 
@@ -64,8 +68,6 @@ columnArray(3) = "A"
 
 ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Dim valuesArray(1 To numberOfColumnsToAdd) As String
-Dim columnArray(1 To 10) As String
 
 Set primary_Key = Range(columnArray(1) & "2:" & columnArray(1) & Range(columnArray(1) & Rows.count).End(xlUp).Row)
 
