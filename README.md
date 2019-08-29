@@ -20,3 +20,17 @@ TO USE THE SCRIPT >>
 >6. Alter the program settings in VBA Editor (Edit code provided using the excel built in editor or prefered text editor.)
 >7. Run Sub-routine pressing F5 or clicking "Run" on the top then selecting "Run Sub-Routine"
 >8. Insert statement will be printed to a file on the desktop.
+
+
+Example:
+Excel doc looks like:
+![](https://i.imgur.com/iwbvUnU.png)
+
+These changes are made to the script:
+![](https://i.imgur.com/0GSNJps.png)
+
+This is the immediate output:
+![](https://i.imgur.com/srBKEvh.png)
+
+This is exported to desktop (THIS IS WHY WINDOWS ONLY) as a .txt:
+![](https://i.imgur.com/JDZEiZc.png)
