@@ -1,5 +1,5 @@
 # mySqlStatementGenerator
-####> Windows ONLY
+#### > Windows ONLY
 >Purpose of script, convert a excel doc to an insert statement to be inputted into a mySQL database <<<
 
 Converts .xslm (macro enabled excel docs) to insert statements given database column title and column which corresponds to said data, printing an insert statement in the format:
@@ -10,7 +10,7 @@ I have addded 1-9 columns with the script using 3 values so far as an example an
 To use those entries just un-comment and then change values depending on where the information exists.
 
 
-##TO USE THE SCRIPT >>
+## TO USE THE SCRIPT >>
 
 >1. Open Excel with relevant data (Make sure developer tab is enabled https://www.techonthenet.com/excel/questions/developer_tab2013.php)
 >2. Navigate to the Developer Tab
@@ -22,19 +22,19 @@ To use those entries just un-comment and then change values depending on where t
 >8. Insert statement will be printed to a file on the desktop.
 
 
-#Example:
-###Excel doc looks like:
+# Example:
+### Excel doc looks like:
 
 ![](https://i.imgur.com/iwbvUnU.png)
 
-###These changes are made to the script:
+### These changes are made to the script:
 
 ![](https://i.imgur.com/0GSNJps.png)
 
-###This is the immediate output:
+### This is the immediate output:
 
 ![](https://i.imgur.com/srBKEvh.png)
 
-###This is exported to desktop (THIS IS WHY WINDOWS ONLY) as a .txt:
+### This is exported to desktop (THIS IS WHY WINDOWS ONLY) as a .txt:
 
 ![](https://i.imgur.com/JDZEiZc.png)
